@@ -45,19 +45,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Integer question1() {
         int[] a = {3, 1, 4, 7, 2, 1, 1, 2, 2};
+        int max = 1;
+        int maxNum = 0;
         LinkedHashMap<Integer, Integer> linkedHashMap = new LinkedHashMap<>();
         for (int i = 0; i < a.length; i++) {
             int i1 = a[i];
             if (linkedHashMap.get(i1) == null) {
                 linkedHashMap.put(i1, 1);
             } else {
-                linkedHashMap.put(i1, linkedHashMap.get(i1) + 1);
-                if (linkedHashMap.get(i1) == 3) {
-                    return i1;
+                int i2 = linkedHashMap.get(i1) + 1;
+                linkedHashMap.put(i1, i2);
+                if(max < i2){
+                    max = i2;
+                    maxNum = i1;
                 }
+
             }
         }
-        return 0;
+        return maxNum;
     }
 
     private void initView() {
