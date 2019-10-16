@@ -11,7 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,13 +48,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Integer question1() {
-        int[] a = {3, 1, 4, 7, 2, 1, 1, 2, 2};
+        int[] a = {3, 1, 4, 7, 2, 1, 1, 2, 2,3,3};
         int max = 1;
         int maxNum = 0;
+        // 记录名次
+        int num = 0;
+        LinkedHashMap<Integer, Integer> numMap = new LinkedHashMap<>();
+//        存放第一次出现位置
         LinkedHashMap<Integer, Integer> linkedHashMap = new LinkedHashMap<>();
+        List<Integer> numList = new ArrayList<>();
         for (int i = 0; i < a.length; i++) {
             int i1 = a[i];
             if (linkedHashMap.get(i1) == null) {
+                num++;
+                numMap.put(i1, num);
                 linkedHashMap.put(i1, 1);
             } else {
                 int i2 = linkedHashMap.get(i1) + 1;
@@ -58,11 +69,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(max < i2){
                     max = i2;
                     maxNum = i1;
+                    numList.clear();
+                    numList.add(i1);
+                }else if(max == i2){
+                    numList.add(i1);
                 }
 
             }
         }
-        return maxNum;
+//        位置最小
+        Integer min = null;
+        Integer minNum = null;
+        for (int i = 0; i < numList.size(); i++) {
+            Integer integer = numList.get(i);
+            boolean b = min == null;
+            if (min == null || min > numMap.get(integer)) {
+                min = numMap.get(integer);
+                minNum = integer;
+            }
+        }
+
+        return minNum;
     }
 
     private void initView() {
